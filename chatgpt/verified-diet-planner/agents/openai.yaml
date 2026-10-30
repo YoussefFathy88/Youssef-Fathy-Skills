@@ -1,0 +1,19 @@
+interface:
+  display_name: Verified Diet Planner
+  short_description: Personalized plans with verified macros
+  default_prompt: Use $verified-diet-planner to create a suitable diet plan for me.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+dependencies:
+  tools:
+  - type: mcp
+    value: myfitnesspal
+    description: Calculate personalized calorie and macro goals and find optional
+      recipe swaps.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

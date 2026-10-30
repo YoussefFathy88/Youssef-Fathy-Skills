@@ -1,0 +1,20 @@
+key,display_name,usda_name,fdc_id,source,state,kcal_per_100g,protein_g_per_100g,total_carbs_g_per_100g,fat_g_per_100g,fiber_g_per_100g,fiber_missing,energy_nutrient_id,dataset_release,verified_date,record_url
+egg,Whole egg,"Eggs, Grade A, Large, egg whole",748967,Foundation,raw,148,12.4,0.96,9.96,0,false,1008,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/748967/nutrients
+chicken,Boneless skinless chicken breast,"Chicken, breast, boneless, skinless, raw",2646170,Foundation,raw,106.034,22.525,0,1.934,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2646170/nutrients
+beef,90 percent lean ground beef,"Beef, ground, 90% lean meat / 10% fat, raw",2514743,Foundation,raw,184.8648,18.15625,0,12.85,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2514743/nutrients
+salmon,Farmed Atlantic salmon,"Fish, salmon, Atlantic, farm raised, raw",2684441,Foundation,raw,197.294,20.31875,0,13.11,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2684441/nutrients
+tuna,Canned light tuna in water drained,"Fish, tuna, light, canned in water, drained solids",334194,Foundation,cooked,90,19,0.08,0.94,0,true,1008,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/334194/nutrients
+rice,White long-grain rice,"Rice, white, long grain, unenriched, raw",2512381,Foundation,raw,358.705,7.03885,80.31315,1.033,0.1488,false,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2512381/nutrients
+potato,Gold potato without skin,"Potatoes, gold, without skin, raw",2346403,Foundation,raw,73.4738,1.8125,15.9624,0.2638,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2346403/nutrients
+pasta,Dry enriched pasta,"Pasta, dry, enriched",169736,SR Legacy,raw,371,13.04,74.67,1.51,3.2,false,1008,2018-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/169736/nutrients
+pita,Whole-wheat pita bread,"Bread, pita, whole-wheat",174916,SR Legacy,cooked,262,9.8,55.89,1.71,6.1,false,1008,2018-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/174916/nutrients
+oats,Old-fashioned rolled oats,"Oats, whole grain, rolled, old fashioned",2346396,Foundation,raw,381.626,13.49645,68.65755,5.89,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2346396/nutrients
+tomato,Roma tomato,"Tomato, roma",1999634,Foundation,raw,21.9574,0.695625,3.837475,0.425,0.9706,false,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/1999634/nutrients
+cucumber,Cucumber with peel,"Cucumber, with peel, raw",2346406,Foundation,raw,15.9075,0.625,2.9525,0.1775,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2346406/nutrients
+lettuce,Green romaine lettuce,"Lettuce, romaine, green, raw",2346389,Foundation,raw,20.77105,0.976875,4.055575,0.07125,0,true,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2346389/nutrients
+banana,Ripe banana,"Bananas, ripe and slightly ripe, raw",1105314,Foundation,raw,97,0.74,23,0.29,1.7,false,1008,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/1105314/nutrients
+apple,Gala apple with skin,"Apples, gala, with skin, raw",1750341,Foundation,raw,60.9536,0.1328125,14.7680875,0.15,2.109,false,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/1750341/nutrients
+orange,Navel orange,"Oranges, raw, navels",746771,Foundation,raw,47,0.91,11.8,0.15,2,false,1008,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/746771/nutrients
+oil,Olive oil,"Oil, olive, salad or cooking",171413,SR Legacy,raw,884,0,0,100,0,false,1008,2018-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/171413/nutrients
+almonds,Whole raw almonds,"Nuts, almonds, whole, raw",2346393,Foundation,raw,625.75,21.45038,20.03462,51.09,10.78,false,2047,2026-04,2026-09-19,https://fdc.nal.usda.gov/fdc-app.html#/food-details/2346393/nutrients
+

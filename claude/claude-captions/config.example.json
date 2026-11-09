@@ -1,0 +1,10 @@
+{
+  "engine": "auto",
+  "language": "ar",
+  "whisperModel": "large-v3-turbo",
+  "styleExample": "خد الـprompt ده وابعته لـChatGPT أو Claude، وهيعملك website كامل.",
+  "vocabulary": ["Claude", "ChatGPT", "prompt", "website", "AI", "CV"],
+  "elevenlabsKeyterms": false,
+  "spellings": {"superbase": "Supabase"},
+  "preset": "reel"
+}

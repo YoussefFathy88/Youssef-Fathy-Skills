@@ -7,6 +7,7 @@ Free, ready-to-use AI skills for ChatGPT and Claude. Download the ZIP, upload it
 | [Verified Diet Planner](chatgpt/verified-diet-planner) | ChatGPT | Builds a personalized meal plan in Arabic or English, with calories and macros checked against MyFitnessPal and USDA data | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/verified-diet-planner.zip) |
 | [Presentation Builder](claude/presentation-builder) | Claude | Guides you from design system and outline to a finished slide deck, using only your own content | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/presentation-builder.zip) |
 | [CapCut Claude Montage](claude/capcut-claude-montage) | Claude Code (Windows) | Adds word-by-word captions and your own images and videos into a copy of your CapCut desktop project, so you can still edit by hand and export | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/capcut-claude-montage.zip) |
+| [Claude Captions](claude/claude-captions) | Claude Code | Accurate, well-timed captions (SRT, VTT, word timings) from any video, including Arabic mixed with English. ElevenLabs recommended, free Whisper fallback tuned for accuracy | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/claude-captions.zip) |
 | [Real Logos](claude/real-logos) | Claude | Uses only official brand logos in your videos and designs, and saves each one to a local library so it's downloaded once and reused forever | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/real-logos.zip) |
 
 Only upload skills from sources you trust, and feel free to read the files in this repo first.
@@ -62,3 +63,13 @@ It never draws, generates or imitates a logo. If a brand has no official file, C
 3. Close your project in CapCut and tell Claude Code **"montage on CapCut"**. It checks your setup first, asks about your caption style once, then adds the captions (and any images or videos you give it) into a copy called `<project> Edit`. Open that copy in CapCut, adjust, and export.
 
 Transcription is free with Whisper on your PC. The skill also offers ElevenLabs for faster, more accurate captions (needs an ElevenLabs account). Your original project is never changed, and every change can be undone. Details in the [skill's README](claude/capcut-claude-montage).
+
+## Claude Captions
+
+**You need:** Claude Code (Claude Pro or Max), Python and ffmpeg. Optional but recommended: an ElevenLabs API key.
+
+1. Download the [skill ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/claude-captions.zip).
+2. Unzip it into your Claude Code skills folder so you get `~/.claude/skills/claude-captions/SKILL.md`.
+3. Tell Claude Code **"caption this video"** and give the file. It checks your setup, transcribes, shows you the text to check, then makes `.srt`, `.vtt`, word-timing and transcript files next to your video.
+
+With an ElevenLabs key it's fast and most accurate. Without one, it tells you and uses free Whisper on your computer, tuned for accuracy with your own style example and vocabulary. Details in the [skill's README](claude/claude-captions).

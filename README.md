@@ -6,6 +6,7 @@ Free, ready-to-use AI skills for ChatGPT and Claude. Download the ZIP, upload it
 | --- | --- | --- | --- |
 | [Verified Diet Planner](chatgpt/verified-diet-planner) | ChatGPT | Builds a personalized meal plan in Arabic or English, with calories and macros checked against MyFitnessPal and USDA data | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/verified-diet-planner.zip) |
 | [Presentation Builder](claude/presentation-builder) | Claude | Guides you from design system and outline to a finished slide deck, using only your own content | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/presentation-builder.zip) |
+| [Real Logos](claude/real-logos) | Claude | Uses only official brand logos in your videos and designs, and saves each one to a local library so it's downloaded once and reused forever | [ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/real-logos.zip) |
 
 Only upload skills from sources you trust, and feel free to read the files in this repo first.
 
@@ -40,3 +41,13 @@ Use it as a baseline. If you want to improve it, just ask ChatGPT to update the 
 1. Download the [skill ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/presentation-builder.zip).
 2. Upload it in Claude.
 3. Ask Claude to build a presentation. It asks about your brand, goal, and audience, then asks for your content and shows you an outline for approval before building any slides.
+
+## Real Logos
+
+**You need:** Claude Code or Claude desktop (it saves files on your computer), and Python.
+
+1. Download the [skill ZIP](https://github.com/YoussefFathy88/Youssef-Fathy-Skills/raw/main/downloads/real-logos.zip).
+2. Upload it in Claude.
+3. Whenever your video, thumbnail or slide names a product, Claude checks your logo library first. If the logo isn't there yet, it finds the official file from the brand's own site, checks it, and saves it to `~/.real-logos`. The next project reuses it with no download.
+
+It never draws, generates or imitates a logo. If a brand has no official file, Claude tells you and uses the name as text instead.

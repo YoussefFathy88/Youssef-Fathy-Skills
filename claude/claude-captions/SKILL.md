@@ -52,7 +52,9 @@ use: `.srt` for editors and platforms, `.words.json` for word-by-word highlight 
    invent text.
 3. Set the language instead of auto-detect when known (mixed Egyptian Arabic + English is often misdetected).
 4. Whisper settings: beam search 5, silence skipped (VAD), no carry-over between pieces (stops repeated or invented
-   lines), word timestamps on.
+   lines), repetition penalty 1.2 + no repeated 3-word runs (stops loops like "اي اي اي اي"), word timestamps on.
+5b. The vocabulary must include THIS video's names and terms (tested: adding "application, Lovable, Replit" turned
+   "أبليكيشن, لفابل, ربلت" into English). When review finds a term written in Arabic letters, add it and run again.
 5. Whisper prompt = a style example + vocabulary. Whisper copies how that sentence is written, so English terms stay in
    English letters and spelling follows the user's style. Tested on Egyptian Arabic: "البرومت" -> "الـprompt",
    "الويبسايت" -> "لـwebsite".

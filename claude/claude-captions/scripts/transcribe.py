@@ -13,6 +13,7 @@ Engine (config "engine", default "auto"):
     - clean audio: 16 kHz mono, low rumble removed, loudness evened out (quiet audio makes Whisper invent text)
     - the language is set, not guessed, when config has it
     - beam search 5, silence skipped (VAD), no carry-over between pieces (stops repeated or invented lines)
+    - repetition penalty + no repeated 3-word runs (stops "اي اي اي اي" loops)
     - a STYLE EXAMPLE + vocabulary as the prompt: Whisper copies how that sentence is written, so English terms stay
       in English letters (tested: "البرومت" became "الـprompt", "الويبسايت" became "لـwebsite")
 Every word gets a confidence; low ones are listed for the user to check.
@@ -88,8 +89,11 @@ def whisper():
         samples = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
     prompt = " ".join(x for x in [cfg.get("styleExample", ""), ", ".join(vocab)] if x) or None
     model = WhisperModel(name, device="cpu", compute_type="int8")
+    # repetition_penalty + no_repeat_ngram_size: stop Whisper looping on one word ("اي اي اي اي") and drifting into
+    # formal Arabic at the end of a clip (tested on a 37 s Egyptian Arabic reel)
     segments, info = model.transcribe(samples, language=lang, word_timestamps=True, beam_size=5, vad_filter=True,
-                                      condition_on_previous_text=False, initial_prompt=prompt)
+                                      condition_on_previous_text=False, initial_prompt=prompt,
+                                      repetition_penalty=1.2, no_repeat_ngram_size=3)
     words = [{"text": w.word.strip(), "start": w.start, "end": w.end, "confidence": round(w.probability, 3)}
              for s in segments for w in (s.words or []) if w.word.strip()]
     return words, info.language, f"whisper {name}"

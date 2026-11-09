@@ -1,0 +1,18 @@
+{
+  "language": "auto",
+  "engine": "whisper",
+  "whisperModel": "medium",
+  "captions": {
+    "font": "C:/Windows/Fonts/arialbd.ttf",
+    "color": "#FFFFFF",
+    "highlight": "#F29900",
+    "outline": "#000000",
+    "outlineWidth": 0.08,
+    "size": 12,
+    "y": 1000,
+    "maxWords": 5,
+    "maxChars": 24
+  },
+  "avoid": [],
+  "spellings": {}
+}

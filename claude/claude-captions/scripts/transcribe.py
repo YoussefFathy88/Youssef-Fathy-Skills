@@ -2,6 +2,7 @@
 
     python scripts/transcribe.py "<video or audio file>"
     python scripts/transcribe.py "<file>" --engine whisper --language ar
+    python scripts/transcribe.py "<file>" --style "خد الـprompt ده" --vocabulary "Claude,Groo"   (one-off overrides)
 
 Writes "<name> captions/words.json" next to the file. Then run build.py to make the caption files.
 
@@ -28,8 +29,14 @@ ap.add_argument("media")
 ap.add_argument("--engine", choices=["auto", "elevenlabs", "whisper"])
 ap.add_argument("--language")
 ap.add_argument("--model")
+ap.add_argument("--style", help="one-off style example sentence (overrides config styleExample)")
+ap.add_argument("--vocabulary", help="one-off terms, comma separated (added to config vocabulary)")
 args = ap.parse_args()
 cfg = load_config()
+if args.style:
+    cfg["styleExample"] = args.style
+if args.vocabulary:
+    cfg["vocabulary"] = list(cfg.get("vocabulary", [])) + [v.strip() for v in args.vocabulary.split(",") if v.strip()]
 if not os.path.exists(args.media):
     raise SystemExit(f"File not found: {args.media}")
 folder, base = out_dir(args.media)

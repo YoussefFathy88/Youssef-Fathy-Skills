@@ -74,9 +74,10 @@ use: `.srt` for editors and platforms, `.words.json` for word-by-word highlight 
 5. Whisper prompt = a style example + vocabulary. Whisper copies how that sentence is written, so English terms stay in
    English letters and spelling follows the user's style. Tested on Egyptian Arabic: "البرومت" -> "الـprompt",
    "الويبسايت" -> "لـwebsite".
-6. Bigger Whisper model = more accurate and slower. `large-v3-turbo` is the default (best in testing on Egyptian
-   Arabic; it sometimes turns casual words formal, e.g. "عشان" -> "لكي": check for that in review); `medium` for slow
-   computers.
+6. `large-v3-turbo` is the default: the best balance in testing on Egyptian Arabic (it sometimes turns casual words
+   formal, e.g. "عشان" -> "لكي": check for that in review). `large-v3` got slightly fewer words wrong on a 37 s reel but
+   was 2.4x slower (71 s vs ~29 s), a 3 GB download, and put foreign letters inside Arabic words ("هنšوف", "الفيڈيو"):
+   only for users who accept that. `medium` for slow computers.
 7. Fix recurring mistakes with `spellings`, never by hand every time.
 8. Human review of low-confidence words before publishing.
 

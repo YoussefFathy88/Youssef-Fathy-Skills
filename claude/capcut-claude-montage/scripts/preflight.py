@@ -109,28 +109,26 @@ if not args.quick:
             say("FIX", tool, "missing", "winget install Gyan.FFmpeg\nThen open a NEW terminal so Windows finds it.")
 
 # 9. Transcription
-engine = cfg.get("engine", "whisper")
-if engine == "elevenlabs":
-    if read_env("ELEVENLABS_API_KEY"):
-        say("OK", "Transcription", "ElevenLabs key found (it's tested on the first transcription)")
+engine = cfg.get("engine", "auto")
+has_key = bool(read_env("ELEVENLABS_API_KEY"))
+whisper_ok = importlib.util.find_spec("faster_whisper") is not None
+if engine == "whisper":
+    say("OK" if whisper_ok else "FIX", "Transcription", "Whisper chosen on purpose" + ("" if whisper_ok else ", not installed"),
+        "" if whisper_ok else "python -m pip install faster-whisper")
+else:  # ElevenLabs first, Whisper as the fallback
+    if has_key:
+        say("OK", "ElevenLabs", "key found (used first; credits and permission are checked on the first transcription)")
     else:
-        say("FIX", "Transcription", "ElevenLabs chosen but no key",
-            f"Create a key at https://elevenlabs.io (Developers > API keys) with Speech to Text allowed.\n"
-            f"Paste it yourself into {ENV_PATH} as: ELEVENLABS_API_KEY=your-key\n"
-            "Never paste the key in this chat. Or switch back to free Whisper: set \"engine\": \"whisper\".")
-elif importlib.util.find_spec("faster_whisper"):
-    say("OK", "Transcription", f"Whisper ({cfg.get('whisperModel', 'medium')} model, free, on this PC)")
-    chosen = False
-    if os.path.exists(CONFIG_PATH):
-        with open(CONFIG_PATH, encoding="utf-8") as fh:
-            chosen = "engine" in json.load(fh)
-    if not args.quick and not chosen:
-        say("ASK", "Faster captions", "optional",
-            "ElevenLabs transcribes in seconds and is more accurate (especially Arabic mixed with English).\n"
-            "It needs an ElevenLabs account; the free plan has monthly credits. Ask the user which one they want.")
-else:
-    say("FIX", "Transcription", "Whisper isn't installed",
-        "python -m pip install faster-whisper\nThe model (hundreds of MB) downloads once, on the first transcription.")
+        say("ASK", "ElevenLabs", "no key: ask the user to add one (recommended)",
+            "ElevenLabs gives the fastest, most accurate captions (keeps English words in English inside Arabic).\n"
+            "Create a key at https://elevenlabs.io (Developers > API keys) with Speech to Text allowed, and paste it\n"
+            f"YOURSELF into {ENV_PATH} as: ELEVENLABS_API_KEY=your-key   (never in this chat).\n"
+            "Until then Whisper is used: free, less accurate, some words may need fixing.")
+    if whisper_ok:
+        say("OK", "Whisper (fallback)", f"installed ({cfg.get('whisperModel', 'large-v3-turbo')}, downloads once on first use)")
+    else:
+        say("FIX" if not has_key else "WARN", "Whisper (fallback)", "not installed",
+            "python -m pip install faster-whisper\n(Free. Needed when there's no ElevenLabs key, no credits, or no internet.)")
 
 fixes = results.count("FIX")
 print()

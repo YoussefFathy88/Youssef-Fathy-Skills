@@ -29,14 +29,13 @@ Settings, the optional API key, transcripts and backups live in `%USERPROFILE%\.
 Run `preflight.py` (`--quick` once config exists and the last full check passed). Then:
 - **FIX** lines: tell the user each fix in simple steps, wait, run the check again. Don't continue until it says READY.
 - **ASK "Signed in to CapCut"**: ask the user. When they confirm, run `preflight.py --confirm-signed-in`.
-- **ASK "Faster captions"** (first time only): offer the choice in one short message:
-  - **Whisper**: free, on this PC; the default "medium" model downloads once (about 1.5 GB, several minutes), then it
-    takes about as long as the video. In Arabic it makes more mistakes and sometimes writes English words in Arabic
-    letters ("CV" -> "السيفي").
-  - **ElevenLabs**: seconds, more accurate, keeps English words in English inside Arabic; needs an ElevenLabs account
-    and an API key with Speech to Text allowed; uses the account's credits (the free plan has monthly credits).
-  If they pick ElevenLabs, guide them to create the key at elevenlabs.io and paste it themselves into the `.env` file
-  as `ELEVENLABS_API_KEY=...`. Save the choice in config (`"engine": "whisper"` or `"elevenlabs"`).
+- **ASK "ElevenLabs: no key"**: captions always try **ElevenLabs first** (fastest, most accurate, keeps English words
+  in English inside Arabic). Ask the user to add a key: elevenlabs.io > Developers > API keys, Speech to Text allowed,
+  paste it themselves into `%USERPROFILE%\.capcut-claude-montage\.env` as `ELEVENLABS_API_KEY=...`. If they can't now,
+  say Whisper will be used (free, less accurate, some words may need fixing). Only set `"engine": "whisper"` if they
+  explicitly want Whisper every time.
+- For Whisper accuracy, also ask once for ONE sentence written exactly how captions should look (with their English
+  terms) and the names/terms they say often: save as `"styleExample"` and `"vocabulary"`.
 
 ### 1. Style (first time, or when the user wants a change)
 Ask everything in ONE message, with the defaults shown, then write `%USERPROFILE%\.capcut-claude-montage\config.json`:
@@ -53,8 +52,11 @@ If `<project> Edit` already exists, use it.
 
 ### 3. Captions
 1. `audio.py "<project> Edit"`: the timeline's sound, from the original files. No export needed.
-2. `transcribe.py "<project> Edit"`. Show the user the text it printed and ask if any word is wrong; add fixes to
-   `spellings` and run it again if needed. If ElevenLabs failed, tell the user the reason it printed.
+2. `transcribe.py "<project> Edit"`: ElevenLabs first. If it prints `ELEVENLABS NOT USED: <reason>` (NO KEY, NO
+   CREDITS, BAD KEY, NO PERMISSION, BUSY, OFFLINE), tell the user the reason and the fix it printed, and that Whisper
+   was used instead: free, less accurate, so some words may need fixing. Offer to rerun with ElevenLabs once fixed.
+   Show the user the text and ask if any word is wrong; add fixes to `spellings` (and terms to `vocabulary`) and run
+   it again if needed.
 3. `captions.py "<project> Edit"`.
 
 ### 4. The user's images and videos (optional)

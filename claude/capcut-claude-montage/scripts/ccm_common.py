@@ -21,8 +21,10 @@ SKILL_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULTS = {
     "projectsDir": None,              # None = CapCut's default folder
     "language": "auto",              # "auto", or a code like "ar", "en", "fr"
-    "engine": "whisper",             # "whisper" (free, on this PC) or "elevenlabs" (faster, more accurate, needs a key)
-    "whisperModel": "medium",        # tiny, base, small, medium, large-v3: bigger = more accurate and slower
+    "engine": "auto",                # "auto" = ElevenLabs first, Whisper if it can't be used; "whisper" = Whisper only
+    "whisperModel": "large-v3-turbo",  # tiny, base, small, medium, large-v3-turbo, large-v3: bigger = more accurate, slower
+    "styleExample": "",              # one sentence written exactly how captions should look (Whisper copies the style)
+    "vocabulary": [],                # names and terms said often: ["Claude", "ChatGPT", "prompt"]
     "captions": {
         "font": "C:/Windows/Fonts/arialbd.ttf",
         "color": "#FFFFFF",          # the phrase

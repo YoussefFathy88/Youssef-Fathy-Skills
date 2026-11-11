@@ -27,7 +27,7 @@ CapCut saves every project as files on your computer. Claude Code reads your pro
 | **Claude Code** | Needs a Claude Pro or Max plan. [Install guide](https://code.claude.com/docs) |
 | **Python 3.9+** | [python.org](https://www.python.org/downloads/windows/), with Pillow: `python -m pip install pillow` |
 | **ffmpeg** | `winget install Gyan.FFmpeg`, then open a new terminal |
-| **Transcription** | **Whisper** (free, default): `python -m pip install faster-whisper`. Or **ElevenLabs** (optional, see below) |
+| **Transcription** | **ElevenLabs** API key (recommended, used first, see below), and **Whisper** as the free fallback: `python -m pip install faster-whisper` |
 
 You don't have to check all of this yourself: the skill runs a setup check first and tells you exactly what to fix.
 
@@ -40,27 +40,35 @@ You don't have to check all of this yourself: the skill runs a setup check first
    ```
 3. Open Claude Code in any folder and say **"montage on CapCut"**.
 
-## Whisper or ElevenLabs?
+## ElevenLabs first, Whisper as the backup
 
-The first time, the skill asks which one you want.
+The skill always tries **ElevenLabs** first. If it can't be used, it tells you exactly why and what to do, then uses
+**Whisper** on your PC so you're never stuck:
 
-| | Whisper | ElevenLabs |
+| Problem | What the skill tells you |
+| --- | --- |
+| No API key | How to create one and where to paste it |
+| Out of credits | Add credits / upgrade, or wait for the monthly renewal |
+| Key rejected | Check the key, or create a new one |
+| Key can't use Speech to Text | Turn that permission on for the key |
+| No internet / busy | Try again in a minute |
+
+Whisper is free but less accurate, so the skill warns you that some words may need fixing and shows you the text first.
+
+| | ElevenLabs (first) | Whisper (backup) |
 | --- | --- | --- |
-| Cost | Free | Uses ElevenLabs credits (the free plan has monthly credits) |
-| Where it runs | On your PC | Online |
-| Speed | First run: several minutes (one-time model download). After that, in testing, about as long as the video itself on a laptop CPU | Seconds |
-| Accuracy | Good for one language. In Arabic videos it makes more mistakes and sometimes writes English words in Arabic letters (e.g. "CV" became "السيفي") | Better, and keeps English words in English inside Arabic captions |
-| Setup | Model downloads once (about 1.5 GB for the default "medium") | Account + API key |
-
-**Speaking Arabic with English tech words?** ElevenLabs is strongly recommended.
+| Cost | ElevenLabs credits (the free plan has monthly credits) | Free |
+| Where it runs | Online | On your PC |
+| Speed | Seconds (a 37 s reel: 5.6 s in testing) | First run downloads the model once; then about as long as the video on a laptop (37 s reel: ~29 s) |
+| Accuracy | Best: on a 37 s Arabic + English reel, 2 words to fix | Good with the skill's tuning, but on the same reel about 10 words to fix |
+| Setup | Account + API key | `python -m pip install faster-whisper` (model about 1.6 GB, once) |
 
 **To use ElevenLabs:** create an account at [elevenlabs.io](https://elevenlabs.io), create an API key with
 **Speech to Text** allowed, and paste it yourself into `C:\Users\<you>\.capcut-claude-montage\.env`:
 ```
 ELEVENLABS_API_KEY=your-key-here
 ```
-Never paste your key into the chat. If ElevenLabs fails (no credits, wrong key), the skill falls back to Whisper and
-tells you why.
+Never paste your key into the chat.
 
 ## Safety
 

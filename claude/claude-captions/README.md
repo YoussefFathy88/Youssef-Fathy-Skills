@@ -16,8 +16,20 @@ then makes the caption files.
 | Cost | ElevenLabs credits (the free plan has monthly credits) | Free |
 | Setup | Account + API key | `python -m pip install faster-whisper` |
 
-**No ElevenLabs key?** The skill tells you and uses Whisper. **ElevenLabs fails** (no credits, wrong key, no
-internet)? It tells you why and uses Whisper.
+The skill **always tries ElevenLabs first**. If it can't be used, it tells you exactly why and what to do, then uses
+Whisper so you're never stuck:
+
+| Problem | What the skill tells you |
+| --- | --- |
+| No API key | How to create one and where to paste it |
+| Out of credits | Add credits / upgrade, or wait for the monthly renewal |
+| Key rejected | Check the key, or create a new one |
+| Key can't use Speech to Text | Turn that permission on for the key |
+| No internet / busy | Try again in a minute |
+
+Whisper is free but less accurate, so you're warned that some words may need fixing, and you see the text first.
+In testing on a 37 s Arabic + English reel: ElevenLabs took 5.6 s with 2 words to fix; the tuned Whisper took ~29 s
+with about 10.
 
 ### How the skill makes Whisper more accurate
 - Cleans the audio first (removes low rumble, evens out loudness). Quiet audio makes Whisper invent words.

@@ -1,7 +1,9 @@
 {
   "language": "auto",
-  "engine": "whisper",
-  "whisperModel": "medium",
+  "engine": "auto",
+  "whisperModel": "large-v3-turbo",
+  "styleExample": "خد الـprompt ده وابعته لـChatGPT أو Claude، وهيعملك website كامل.",
+  "vocabulary": ["Claude", "ChatGPT", "prompt", "website", "AI"],
   "captions": {
     "font": "C:/Windows/Fonts/arialbd.ttf",
     "color": "#FFFFFF",

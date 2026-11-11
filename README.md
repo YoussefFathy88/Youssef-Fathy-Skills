@@ -62,7 +62,7 @@ It never draws, generates or imitates a logo. If a brand has no official file, C
 2. Unzip it into `C:\Users\<you>\.claude\skills\` so you get `capcut-claude-montage\SKILL.md` there.
 3. Close your project in CapCut and tell Claude Code **"montage on CapCut"**. It checks your setup first, asks about your caption style once, then adds the captions (and any images or videos you give it) into a copy called `<project> Edit`. Open that copy in CapCut, adjust, and export.
 
-Transcription is free with Whisper on your PC. The skill also offers ElevenLabs for faster, more accurate captions (needs an ElevenLabs account). Your original project is never changed, and every change can be undone. Details in the [skill's README](claude/capcut-claude-montage).
+Captions use ElevenLabs first (fastest, most accurate; needs an API key). Without a key, out of credits or offline, the skill tells you why and uses free Whisper on your PC instead. Your original project is never changed, and every change can be undone. Details in the [skill's README](claude/capcut-claude-montage).
 
 ## Claude Captions
 

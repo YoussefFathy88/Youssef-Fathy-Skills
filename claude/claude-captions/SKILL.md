@@ -34,8 +34,24 @@ Run `preflight.py`. Handle every line:
   to look, with their real English terms (e.g. `خد الـprompt ده وابعته لـChatGPT`), (3) names and terms they say often.
   Save as `"language"`, `"styleExample"`, `"vocabulary"`. This is the biggest Whisper accuracy win.
 
-### 1. Transcribe
-`transcribe.py "<file>"`. It prints the engine, the text and the low-confidence words.
+### 1. Transcribe: ElevenLabs first, Whisper as the fallback
+`transcribe.py "<file>"`. It always tries ElevenLabs first (unless the user set `"engine": "whisper"` on purpose).
+If ElevenLabs can't be used, it prints a box `ELEVENLABS NOT USED: <reason>` and runs Whisper by itself. **Tell the
+user the reason and the fix in plain words, then that Whisper was used and may need fixes:**
+
+| Reason | Tell the user |
+| --- | --- |
+| NO KEY | Add an ElevenLabs API key for the best captions: elevenlabs.io > Developers > API keys, Speech to Text allowed, paste it yourself into `~/.claude-captions/.env` as `ELEVENLABS_API_KEY=...` |
+| NO CREDITS | The ElevenLabs account is out of credits: add credits / upgrade, or wait for the monthly renewal |
+| BAD KEY | The key was rejected: check it was pasted completely, or create a new one |
+| NO PERMISSION | The key isn't allowed to use Speech to Text: turn it on for the key |
+| BUSY / OFFLINE | Rate limit or no connection: try again in a minute |
+
+Always add: *"So I used Whisper on your computer (free, most accurate settings). It's less accurate than ElevenLabs,
+so some words may need fixing: please check the transcript."* Once the problem is fixed, offer to run it again with
+ElevenLabs. `words.json` also records it (`elevenlabsProblem`, `note`).
+
+The script prints the engine, the text and the low-confidence words.
 - Show the user the text in short lines and the words to check. Ask what's wrong.
 - Fix wrong words directly in `<name> captions/words.json` (keep the timings). A word they say often and Whisper keeps
   getting wrong goes into `"spellings"` (and `"vocabulary"`) in config, so it's fixed next time too.

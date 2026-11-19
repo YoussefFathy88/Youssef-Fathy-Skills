@@ -74,7 +74,7 @@ for i, (src, start, length, tempo, volume, when) in enumerate(pieces):
     parts.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=mono,{speedup}volume={volume:.4f},adelay={round(when * 1000)}:all=1[a{i}]")
 total = root["duration"] / 1e6
 mix = ("".join(f"[a{i}]" for i in range(len(pieces))) +
-       f"amix=inputs={len(pieces)}:normalize=0:duration=longest,apad,atrim=0:{total:.6f},{CLEANUP},aresample=16000[out]")
+       f"amix=inputs={len(pieces)}:normalize=0:duration=longest,apad=whole_dur={total:.6f},atrim=0:{total:.6f},{CLEANUP},aresample=16000[out]")
 subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(parts + [mix]),
-                "-map", "[out]", "-ac", "1", "-c:a", "pcm_s16le", out], check=True)
+                "-map", "[out]", "-t", f"{total:.6f}", "-ac", "1", "-c:a", "pcm_s16le", out], check=True)
 print(f"{len(pieces)} clips, {total:.1f} s -> {out}")

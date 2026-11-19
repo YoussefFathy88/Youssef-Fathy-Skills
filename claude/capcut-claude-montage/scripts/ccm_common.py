@@ -148,7 +148,58 @@ def backup(name, cfg=None, label="change"):
     return dst
 
 
+MEDIA_EXT = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".m4v", ".webm", ".mp3", ".wav", ".m4a")
+
+
+def _is_compound_render(path):
+    return "/Resources/combination/" in (path or "").replace("\\", "/")
+
+
+def repair_draft(draft):
+    """A clip with its own file must never point at a compound clip's timeline ("drafts"): CapCut then plays that compound
+    instead, and empties the clip's path when it saves. Removes such links; returns how many."""
+    m = draft["materials"]
+    videos = {v["id"]: v for v in m.get("videos", [])}
+    drafts = {x["id"] for x in m.get("drafts", [])}
+    fixed = 0
+    for t in draft["tracks"]:
+        for s in t["segments"]:
+            v = videos.get(s["material_id"])
+            if v and v.get("path") and not _is_compound_render(v["path"]) and drafts & set(s.get("extra_material_refs", [])):
+                s["extra_material_refs"] = [r for r in s["extra_material_refs"] if r not in drafts]
+                fixed += 1
+    return fixed
+
+
+def check_draft(draft, folder=None):
+    """Problems that would show up as a broken edit in CapCut: wrong compound links, emptied or missing files."""
+    m = draft["materials"]
+    videos = {v["id"]: v for v in m.get("videos", [])}
+    drafts = {x["id"] for x in m.get("drafts", [])}
+    problems = []
+    for t in draft["tracks"]:
+        for s in t["segments"]:
+            v = videos.get(s["material_id"])
+            if not v:
+                continue
+            at, name, path = s["target_timerange"]["start"] / 1e6, v.get("material_name") or "?", v.get("path") or ""
+            if path and not _is_compound_render(path) and drafts & set(s.get("extra_material_refs", [])):
+                problems.append(f"{name} at {at:.2f} s is linked to a compound clip: CapCut would play that compound instead")
+            if not path and name.lower().endswith(MEDIA_EXT):
+                problems.append(f"{name} at {at:.2f} s has an empty path (CapCut emptied it): delete it and add it again (add.py --replace)")
+            if path.startswith("##_draftpath_placeholder_") and folder:
+                path = os.path.join(folder, path.split("_##/", 1)[-1])
+            if path and not path.startswith("##_") and not os.path.exists(path):
+                problems.append(f"{name} at {at:.2f} s: file missing: {path}")
+    return problems
+
+
 def save_draft(name, draft, cfg=None):
+    fixed = repair_draft(draft)
+    if fixed:
+        print(f"Repaired {fixed} clip(s) that pointed at a compound clip instead of their own file.")
+    for p in check_draft(draft, project_path(name, cfg)):
+        print("CHECK:", p)
     data = json.dumps(draft, ensure_ascii=False, separators=(",", ":"))
     for p in timeline_files(name, draft, cfg):
         if os.path.exists(p) or p.endswith("draft_content.json"):

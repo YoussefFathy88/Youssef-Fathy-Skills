@@ -65,8 +65,14 @@ Write a `plan.json` in `%USERPROFILE%\.capcut-claude-montage\work\<project> Edit
 then `add.py "<project> Edit" --plan <plan.json>`. If it refuses because something covers a B-roll or an avoid area,
 offer another spot or time, or add `"allow": true` only after the user agrees.
 
-### 5. Hand over
+### 5. Check, then hand over
+Run `verify.py "<project> Edit"` and fix every problem before you hand it over (`--fix` removes wrong compound-clip
+links; an emptied clip is deleted and added again with `add.py --replace`). `captions.py` and `add.py` also repair and
+check on every save. Projects built from compound clips are where this matters most: a copied clip that keeps a compound
+clip's link plays that compound instead, and CapCut empties its path when it saves.
+
 Tell the user: open **`<project> Edit`** in CapCut, check it, change anything by hand, and Export.
+- After they save in CapCut, run `verify.py` again before calling it done.
 - More changes later: they close the project, you run the script again (captions are replaced, media is added).
 - Undo the last change: `restore.py "<project> Edit"` (`--list` shows backups; hand changes made after that backup are lost).
 
